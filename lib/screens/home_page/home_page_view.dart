@@ -1,57 +1,43 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'widget/featured_experience_card.dart';
+import 'widget/home_header_widget.dart';
+import 'widget/home_search_bar_widget.dart';
+import 'widget/recent_additions_section.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF1C2230), Color(0xFF12151D)],
-        ),
-      ),
-      child: SafeArea(
-        child: Center(
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FA),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 16,
+            bottom: 100, // Extra space at bottom for floating Cupertino Tab Bar
+          ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: const Color(0xFF8AAEFF).withValues(alpha: 0.12),
-                  border: Border.all(
-                    color: const Color(0xFF8AAEFF).withValues(alpha: 0.3),
-                    width: 1.5,
-                  ),
-                ),
-                child: const Icon(
-                  CupertinoIcons.house_fill,
-                  size: 56,
-                  color: Color(0xFF8AAEFF),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Home Screen',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 0.5,
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Cupertino Style Bottom Navigation Bar',
-                style: TextStyle(fontSize: 14, color: Color(0xFF8E97A4)),
-              ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              // Header Section
+              HomeHeaderWidget(),
+              SizedBox(height: 20),
+
+              // Search & Filter Bar Section
+              HomeSearchBarWidget(),
+              SizedBox(height: 24),
+
+              // Featured Experience Hero Card
+              FeaturedExperienceCard(),
+              SizedBox(height: 28),
+
+              // Recent Additions List Section
+              RecentAdditionsSection(),
             ],
           ),
         ),

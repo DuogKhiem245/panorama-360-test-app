@@ -6,17 +6,9 @@ class FavoritesPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFF1C2230), Color(0xFF12151D)],
-        ),
-      ),
-      child: SafeArea(
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FA),
+      body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -25,16 +17,16 @@ class FavoritesPageView extends StatelessWidget {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xFF8AAEFF).withValues(alpha: 0.12),
+                  color: const Color(0xFF0284C7).withValues(alpha: 0.1),
                   border: Border.all(
-                    color: const Color(0xFF8AAEFF).withValues(alpha: 0.3),
+                    color: const Color(0xFF0284C7).withValues(alpha: 0.25),
                     width: 1.5,
                   ),
                 ),
                 child: const Icon(
                   CupertinoIcons.heart_fill,
                   size: 56,
-                  color: Color(0xFF8AAEFF),
+                  color: Color(0xFF0284C7),
                 ),
               ),
               const SizedBox(height: 20),
@@ -43,14 +35,14 @@ class FavoritesPageView extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Color(0xFF0F172A),
                   letterSpacing: 0.5,
                 ),
               ),
               const SizedBox(height: 8),
               const Text(
-                'Cupertino Style Bottom Navigation Bar',
-                style: TextStyle(fontSize: 14, color: Color(0xFF8E97A4)),
+                'Your Saved Spaces & Galleries',
+                style: TextStyle(fontSize: 14, color: Color(0xFF64748B)),
               ),
             ],
           ),

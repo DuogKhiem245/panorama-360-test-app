@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:panorama_360_test_app/widgets/cupertino_tab_bar_widget.dart';
@@ -19,6 +20,11 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return const CupertinoApp(
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: [
+            DefaultMaterialLocalizations.delegate,
+            DefaultCupertinoLocalizations.delegate,
+            DefaultWidgetsLocalizations.delegate,
+          ],
           home: MainScreen(),
         );
       },

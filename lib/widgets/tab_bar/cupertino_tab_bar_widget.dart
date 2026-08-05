@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:panorama_360_test_app/providers/navigation_provider.dart';
-import 'package:panorama_360_test_app/screens/explore_page/explore_page_view.dart';
-import 'package:panorama_360_test_app/screens/favorites_page/favorites_page_view.dart';
-import 'package:panorama_360_test_app/screens/home_page/home_page_view.dart';
-import 'package:panorama_360_test_app/screens/profile_page/profile_page_view.dart';
-import 'package:panorama_360_test_app/screens/search_page/search_page_view.dart';
 
+import '../../providers/navigation_provider.dart';
+import '../../screens/explore_page/explore_page_view.dart';
+import '../../screens/favorites_page/favorites_page_view.dart';
+import '../../screens/home_page/home_page_view.dart';
+import '../../screens/profile_page/profile_page_view.dart';
+import '../../screens/search_page/search_page_view.dart';
 
 class TabItemData {
   final String label;
@@ -37,9 +37,9 @@ class MainScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(navigationNotifierProvider);
 
-    return CupertinoPageScaffold(
-      backgroundColor: const Color(0xFF14171F),
-      child: Stack(
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FA),
+      body: Stack(
         children: [
           // Content of selected tab page
           IndexedStack(
@@ -107,7 +107,7 @@ class CustomCupertinoTabBar extends ConsumerWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.35),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
