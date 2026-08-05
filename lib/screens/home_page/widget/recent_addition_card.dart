@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:panorama_360_test_app/core/constants/app_color.dart';
 
 class RecentAdditionCard extends StatelessWidget {
   final String imageUrl;
@@ -21,16 +22,24 @@ class RecentAdditionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.card(isDark),
           borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isDark ? AppColors.border(isDark) : Colors.transparent,
+            width: isDark ? 1.0 : 0,
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.04),
+              color: isDark
+                  ? Colors.black.withValues(alpha: 0.2)
+                  : Colors.black.withValues(alpha: 0.04),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -54,11 +63,15 @@ class RecentAdditionCard extends StatelessWidget {
                         imageUrl,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) => Container(
-                          color: const Color(0xFFE2E8F0),
-                          child: const Center(
+                          color: isDark
+                              ? const Color(0xFF334155)
+                              : const Color(0xFFE2E8F0),
+                          child: Center(
                             child: Icon(
                               CupertinoIcons.photo,
-                              color: Color(0xFF94A3B8),
+                              color: isDark
+                                  ? Colors.white54
+                                  : const Color(0xFF94A3B8),
                               size: 36,
                             ),
                           ),
@@ -66,7 +79,9 @@ class RecentAdditionCard extends StatelessWidget {
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) return child;
                           return Container(
-                            color: const Color(0xFFF1F5F9),
+                            color: isDark
+                                ? const Color(0xFF1E293B)
+                                : const Color(0xFFF1F5F9),
                             child: const Center(
                               child: CupertinoActivityIndicator(),
                             ),
@@ -84,15 +99,19 @@ class RecentAdditionCard extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.92),
+                          color: isDark
+                              ? const Color(0xFF0F172A).withValues(alpha: 0.9)
+                              : Colors.white.withValues(alpha: 0.92),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
                           badgeText,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF0284C7),
+                            color: isDark
+                                ? const Color(0xFF38BDF8)
+                                : const Color(0xFF0284C7),
                           ),
                         ),
                       ),
@@ -110,10 +129,10 @@ class RecentAdditionCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF0F172A),
+                      color: AppColors.textPrimary(isDark),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -122,17 +141,17 @@ class RecentAdditionCard extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Icon(
+                          Icon(
                             CupertinoIcons.eye,
                             size: 15,
-                            color: Color(0xFF64748B),
+                            color: AppColors.textSecondary(isDark),
                           ),
                           const SizedBox(width: 4),
                           Text(
                             viewsText,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 13,
-                              color: Color(0xFF64748B),
+                              color: AppColors.textSecondary(isDark),
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -140,9 +159,9 @@ class RecentAdditionCard extends StatelessWidget {
                       ),
                       Text(
                         locationText,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13,
-                          color: Color(0xFF64748B),
+                          color: AppColors.textSecondary(isDark),
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -157,3 +176,4 @@ class RecentAdditionCard extends StatelessWidget {
     );
   }
 }
+

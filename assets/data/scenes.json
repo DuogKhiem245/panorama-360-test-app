@@ -1,3 +1,78 @@
-{
-    "(Quản lý dữ liệu Hotspot/Scene)": "Quản lý dữ liệu Hotspot/Scene"
-}
+[
+  {
+    "id": "scene_living_room",
+    "title": "Phòng khách Hiện đại",
+    "location": "Malibu, California",
+    "category": "Triển lãm",
+    "isFeatured": true,
+    "thumbnailUrl": "assets/images/living_room_thumb.jpg",
+    "panoramaImagePath": "assets/images/living_room_360.jpg",
+    "hotspots": [
+      {
+        "id": "hs_tv",
+        "type": "INFO",
+        "latitude": 0.0,
+        "longitude": 45.0,
+        "title": "Tivi OLED 65 inch",
+        "description": "Màn hình OLED 4K hiển thị sắc nét với tần số quét 120Hz.",
+        "imageUrl": "https://images.unsplash.com/photo-1593784991095-a2010695720d"
+      },
+      {
+        "id": "hs_sofa",
+        "type": "INFO",
+        "latitude": -15.0,
+        "longitude": 90.0,
+        "title": "Bộ Sofa Ý High-end",
+        "description": "Chất liệu da bò thật nhập khẩu nguyên chiếc.",
+        "imageUrl": null
+      },
+      {
+        "id": "hs_to_kitchen",
+        "type": "NAVIGATION",
+        "latitude": -5.0,
+        "longitude": 160.0,
+        "title": "Đi đến Nhà Bếp",
+        "description": "Chuyển sang không gian nhà bếp",
+        "targetSceneId": "scene_kitchen"
+      }
+    ]
+  },
+  {
+    "id": "scene_kitchen",
+    "title": "Nhà Bếp Bấm Hiện Đại",
+    "location": "Malibu, California",
+    "category": "Triển lãm",
+    "isFeatured": false,
+    "thumbnailUrl": "assets/images/kitchen_thumb.jpg",
+    "panoramaImagePath": "assets/images/kitchen_360.jpg",
+    "hotspots": [
+      {
+        "id": "hs_fridge",
+        "type": "INFO",
+        "latitude": 5.0,
+        "longitude": -45.0,
+        "title": "Tủ Lạnh Side-by-Side",
+        "description": "Dung tích 600L tích hợp lấy nước ngoài.",
+        "imageUrl": null
+      },
+      {
+        "id": "hs_island",
+        "type": "INFO",
+        "latitude": -20.0,
+        "longitude": -100.0,
+        "title": "Bàn Đảo Bếp Đá Quartz",
+        "description": "Mặt đá chống xước và chống thấm cao cấp.",
+        "imageUrl": null
+      },
+      {
+        "id": "hs_to_living_room",
+        "type": "NAVIGATION",
+        "latitude": 0.0,
+        "longitude": -170.0,
+        "title": "Quay lại Phòng Khách",
+        "description": "Trở về không gian phòng khách",
+        "targetSceneId": "scene_living_room"
+      }
+    ]
+  }
+]

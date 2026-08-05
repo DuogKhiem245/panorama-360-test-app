@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:panorama_360_test_app/models/tab_items.dart';
+import 'package:panorama_360_test_app/models/tab_items_model.dart';
 import 'package:panorama_360_test_app/providers/navigation_provider.dart';
 import 'package:panorama_360_test_app/screens/explore_page/explore_page_view.dart';
 import 'package:panorama_360_test_app/screens/favorites_page/favorites_page_view.dart';
@@ -24,43 +24,38 @@ class MainScreen extends ConsumerWidget {
     final selectedIndex = ref.watch(navigationNotifierProvider);
 
     return CupertinoPageScaffold(
-      backgroundColor: const Color(0xFF14171F),
+      backgroundColor: CupertinoTheme.of(context).scaffoldBackgroundColor,
       child: Stack(
         children: [
           IndexedStack(index: selectedIndex, children: _pages),
-          const Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: CustomCupertinoTabBar(),
-          ),
+          const Positioned(left: 0, right: 0, bottom: 0, child: CustomTabBar()),
         ],
       ),
     );
   }
 }
 
-class CustomCupertinoTabBar extends ConsumerWidget {
-  const CustomCupertinoTabBar({super.key});
+class CustomTabBar extends ConsumerWidget {
+  const CustomTabBar({super.key});
 
   static const List<TabItemData> _items = [
     TabItemData(
-      label: 'Home',
+      label: 'Trang chủ',
       icon: CupertinoIcons.house,
       activeIcon: CupertinoIcons.house_fill,
     ),
     TabItemData(
-      label: 'Explore',
+      label: 'Khám phá',
       icon: CupertinoIcons.compass,
       activeIcon: CupertinoIcons.compass_fill,
     ),
     TabItemData(
-      label: 'Favorites',
+      label: 'Yêu thích',
       icon: CupertinoIcons.heart,
       activeIcon: CupertinoIcons.heart_fill,
     ),
     TabItemData(
-      label: 'Profile',
+      label: 'Cá nhân',
       icon: CupertinoIcons.person,
       activeIcon: CupertinoIcons.person_fill,
     ),
@@ -73,20 +68,8 @@ class CustomCupertinoTabBar extends ConsumerWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.92),
-        borderRadius: BorderRadius.circular(32.r),
-        border: Border.all(
-          color: Colors.black.withValues(alpha: 0.05),
-          width: 1.2,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF0F172A).withValues(alpha: 0.08),
-            blurRadius: 24,
-            spreadRadius: 2,
-            offset: const Offset(0, 10),
-          ),
-        ],
+        color: CupertinoTheme.of(context).barBackgroundColor,
+        borderRadius: BorderRadius.circular(24.r),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -103,11 +86,10 @@ class CustomCupertinoTabBar extends ConsumerWidget {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.fastOutSlowIn,
-                padding: EdgeInsets.symmetric(vertical: 4.h),
+                padding: EdgeInsets.symmetric(vertical: 8.h),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Hiệu ứng co giãn Icon khi active (Bounce effect)
                     AnimatedScale(
                       scale: isSelected ? 1.15 : 1.0,
                       duration: const Duration(milliseconds: 250),
@@ -120,34 +102,27 @@ class CustomCupertinoTabBar extends ConsumerWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.r),
                           color: isSelected
-                              ? const Color(
-                                  0xFFEFF6FF,
-                                ) // Nền Highlight Xanh nhạt
+                              ? CupertinoTheme.of(context).primaryColor
                               : Colors.transparent,
                         ),
                         child: Icon(
                           isSelected ? item.activeIcon : item.icon,
                           size: 20.sp,
-                          color: isSelected
-                              ? const Color(0xFF2563EB) // Blue Hoàng Gia
-                              : const Color(0xFF64748B), // Slate Grey
+                          color: CupertinoTheme.of(
+                            context,
+                          ).textTheme.textStyle.color,
                         ),
                       ),
                     ),
-                    SizedBox(height: 3.h),
-                    // Label Text với hiệu ứng chuyển màu
+                    SizedBox(height: 5.h),
                     AnimatedDefaultTextStyle(
                       duration: const Duration(milliseconds: 200),
                       style: TextStyle(
-                        fontSize: 11.sp,
-                        fontWeight: isSelected
-                            ? FontWeight.w700
-                            : FontWeight.w500,
-                        color: isSelected
-                            ? const Color(0xFF2563EB)
-                            : const Color(0xFF64748B),
-                        letterSpacing: -0.2,
-                        fontFamily: '.SF Pro Text',
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                        color: CupertinoTheme.of(
+                          context,
+                        ).textTheme.textStyle.color,
                       ),
                       child: Text(item.label),
                     ),

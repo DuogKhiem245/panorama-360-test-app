@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:panorama_360_test_app/core/constants/app_color.dart';
 
 class HomeSearchBarWidget extends StatelessWidget {
   const HomeSearchBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+
     return Row(
       children: [
         // Input text field container
@@ -14,33 +16,33 @@ class HomeSearchBarWidget extends StatelessWidget {
             height: 48,
             padding: const EdgeInsets.symmetric(horizontal: 14),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.card(isDark),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: const Color(0xFFE2E8F0),
+                color: AppColors.border(isDark),
                 width: 1.2,
               ),
             ),
             child: Row(
-              children: const [
+              children: [
                 Icon(
                   CupertinoIcons.search,
                   size: 20,
-                  color: Color(0xFF94A3B8),
+                  color: AppColors.textSecondary(isDark),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: CupertinoTextField(
-                    placeholder: 'Search venues, galleries, h...',
+                    placeholder: 'Tìm kiếm địa điểm, triển lãm...',
                     placeholderStyle: TextStyle(
-                      color: Color(0xFF94A3B8),
+                      color: AppColors.textSecondary(isDark),
                       fontSize: 14,
                     ),
                     decoration: null,
                     padding: EdgeInsets.zero,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Color(0xFF0F172A),
+                      color: AppColors.textPrimary(isDark),
                     ),
                   ),
                 ),
@@ -56,17 +58,17 @@ class HomeSearchBarWidget extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.card(isDark),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: const Color(0xFFE2E8F0),
+                color: AppColors.border(isDark),
                 width: 1.2,
               ),
             ),
-            child: const Icon(
+            child: Icon(
               CupertinoIcons.slider_horizontal_3,
               size: 20,
-              color: Color(0xFF334155),
+              color: AppColors.textPrimary(isDark),
             ),
           ),
         ),
@@ -74,3 +76,4 @@ class HomeSearchBarWidget extends StatelessWidget {
     );
   }
 }
+

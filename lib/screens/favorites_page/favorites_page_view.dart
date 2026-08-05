@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:panorama_360_test_app/core/constants/app_color.dart';
 
 class FavoritesPageView extends StatelessWidget {
   const FavoritesPageView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FA),
+      backgroundColor: AppColors.bg(isDark),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -30,19 +33,22 @@ class FavoritesPageView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Favorites Screen',
+              Text(
+                'Màn hình Yêu thích',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF0F172A),
+                  color: AppColors.textPrimary(isDark),
                   letterSpacing: 0.5,
                 ),
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Your Saved Spaces & Galleries',
-                style: TextStyle(fontSize: 14, color: Color(0xFF64748B)),
+              Text(
+                'Không gian & Triển lãm đã lưu của bạn',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.textSecondary(isDark),
+                ),
               ),
             ],
           ),
@@ -51,3 +57,4 @@ class FavoritesPageView extends StatelessWidget {
     );
   }
 }
+

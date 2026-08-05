@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:panorama_360_test_app/models/scene_model.dart';
 
 class FeaturedExperienceCard extends StatelessWidget {
+  final SceneModel? scene;
   final VoidCallback? onOpen360Tap;
   final VoidCallback? onViewAllTap;
 
   const FeaturedExperienceCard({
     super.key,
+    this.scene,
     this.onOpen360Tap,
     this.onViewAllTap,
   });
@@ -15,36 +19,35 @@ class FeaturedExperienceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Section Header
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Featured Experience',
+            Text(
+              'Trải nghiệm Nổi bật',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF0F172A),
+                color: CupertinoTheme.of(context).textTheme.textStyle.color,
               ),
             ),
+
             GestureDetector(
               onTap: onViewAllTap,
-              child: const Text(
-                'View all',
+              child: Text(
+                'Xem tất cả',
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF0284C7),
+                  color: CupertinoTheme.of(context).primaryColor,
                 ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 12),
-        // Hero Card
+        SizedBox(height: 12.h),
         Container(
           width: double.infinity,
-          height: 320,
+          height: 320.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
@@ -59,7 +62,6 @@ class FeaturedExperienceCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                // Background Image
                 Positioned.fill(
                   child: Image.network(
                     'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop',
@@ -85,7 +87,6 @@ class FeaturedExperienceCard extends StatelessWidget {
                     },
                   ),
                 ),
-                // Gradient Overlay
                 Positioned.fill(
                   child: Container(
                     decoration: BoxDecoration(
@@ -103,7 +104,6 @@ class FeaturedExperienceCard extends StatelessWidget {
                   ),
                 ),
 
-                // Top Left Badge: Hot Experience
                 Positioned(
                   top: 14,
                   left: 14,
@@ -122,7 +122,7 @@ class FeaturedExperienceCard extends StatelessWidget {
                         ContainerDot(),
                         SizedBox(width: 5),
                         Text(
-                          'Hot Experience',
+                          'Trải nghiệm Hot',
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -134,7 +134,6 @@ class FeaturedExperienceCard extends StatelessWidget {
                   ),
                 ),
 
-                // Bottom Content Details
                 Positioned(
                   left: 16,
                   right: 16,
@@ -142,7 +141,6 @@ class FeaturedExperienceCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Location Row
                       Row(
                         children: const [
                           Icon(
@@ -162,9 +160,8 @@ class FeaturedExperienceCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      // Title
                       const Text(
-                        'Modern Living Room',
+                        'Phòng khách Hiện đại',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -173,7 +170,6 @@ class FeaturedExperienceCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 14),
-                      // Open 360° Button
                       SizedBox(
                         width: double.infinity,
                         height: 44,
@@ -196,7 +192,7 @@ class FeaturedExperienceCard extends StatelessWidget {
                               ),
                               SizedBox(width: 8),
                               Text(
-                                'Open 360°',
+                                'Mở 360°',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:panorama_360_test_app/core/constants/app_color.dart';
 import 'package:panorama_360_test_app/widgets/cupertino_tab_bar_widget.dart';
 
 void main() {
@@ -20,14 +21,23 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return const CupertinoApp(
+        final brightness = MediaQuery.platformBrightnessOf(context);
+        final isDark = brightness == Brightness.dark;
+
+        return CupertinoApp(
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
+          theme: CupertinoThemeData(
+            brightness: brightness,
+            primaryColor: AppColors.primary,
+            scaffoldBackgroundColor: AppColors.bg(isDark),
+            barBackgroundColor: AppColors.card(isDark),
+          ),
+          localizationsDelegates: const [
             DefaultMaterialLocalizations.delegate,
             DefaultCupertinoLocalizations.delegate,
             DefaultWidgetsLocalizations.delegate,
           ],
-          home: MainScreen(),
+          home: const MainScreen(),
         );
       },
     );
