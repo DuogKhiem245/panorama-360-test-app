@@ -5,8 +5,8 @@
     "location": "Malibu, California",
     "category": "Triển lãm",
     "isFeatured": true,
-    "thumbnailUrl": "assets/images/anh_1.jpg",
-    "panoramaImagePath": "assets/images/anh_1.jpg",
+    "thumbnailUrl": "assets/images/anh_1.png",
+    "panoramaImagePath": "assets/images/anh_1.png",
     "hotspots": [
       {
         "id": "hs_tv",
@@ -43,8 +43,8 @@
     "location": "Malibu, California",
     "category": "Triển lãm",
     "isFeatured": false,
-    "thumbnailUrl": "assets/images/anh_2.jpg",
-    "panoramaImagePath": "assets/images/anh_2.jpg",
+    "thumbnailUrl": "assets/images/anh_2.png",
+    "panoramaImagePath": "assets/images/anh_2.png",
     "hotspots": [
       {
         "id": "hs_fridge",

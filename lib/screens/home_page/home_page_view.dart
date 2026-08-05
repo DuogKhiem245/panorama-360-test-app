@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:panorama_360_test_app/providers/scene_provider.dart';
-import 'package:panorama_360_test_app/screens/home_page/widget/featured_experience_card.dart';
-import 'package:panorama_360_test_app/screens/home_page/widget/home_header_widget.dart';
-import 'package:panorama_360_test_app/screens/home_page/widget/home_search_bar_widget.dart';
-import 'package:panorama_360_test_app/screens/home_page/widget/recent_additions_section.dart';
+import 'package:panorama_360_test_app/screens/home_page/widgets/featured_experience_card.dart';
+import 'package:panorama_360_test_app/screens/home_page/widgets/home_header_widget.dart';
+import 'package:panorama_360_test_app/screens/home_page/widgets/home_search_bar_widget.dart';
+import 'package:panorama_360_test_app/screens/panorama_page/panorama_page_view.dart';
 
 class HomePageView extends ConsumerStatefulWidget {
   const HomePageView({super.key});
@@ -17,7 +17,6 @@ class HomePageView extends ConsumerStatefulWidget {
 class _HomePageViewState extends ConsumerState<HomePageView> {
   @override
   Widget build(BuildContext context) {
-    final scenesAsync = ref.watch(scenesProvider);
     final featuredSceneAsync = ref.watch(featuredSceneProvider);
 
     return CupertinoPageScaffold(
@@ -50,11 +49,11 @@ class _HomePageViewState extends ConsumerState<HomePageView> {
                       FeaturedExperienceCard(
                         scene: featuredScene,
                         onOpen360Tap: () {
-                          // Navigator.of(context).push(
-                          //   CupertinoPageRoute(
-                          //     builder: (context) => PanoramaScreen(scene: featuredScene),
-                          //   ),
-                          // );
+                          Navigator.of(context).push(
+                            CupertinoPageRoute(
+                              builder: (context) => PanoramaPageView(scene: featuredScene),
+                            ),
+                          );
                         },
                       ),
                       SizedBox(height: 28.h),
@@ -66,13 +65,6 @@ class _HomePageViewState extends ConsumerState<HomePageView> {
                   alignment: Alignment.center,
                   child: const CupertinoActivityIndicator(),
                 ),
-                error: (err, stack) => const SizedBox.shrink(),
-              ),
-
-              scenesAsync.when(
-                data: (scenes) => RecentAdditionsSection(scenes: scenes),
-                loading: () =>
-                    const Center(child: CupertinoActivityIndicator()),
                 error: (err, stack) => const SizedBox.shrink(),
               ),
             ],

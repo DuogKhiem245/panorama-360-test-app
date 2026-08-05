@@ -1,54 +1,50 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:panorama_360_test_app/core/constants/app_color.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:panorama_360_test_app/providers/scene_provider.dart';
+import 'package:panorama_360_test_app/screens/explore_page/widgets/recent_additions_widget.dart';
 
-class ExplorePageView extends StatelessWidget {
+class ExplorePageView extends ConsumerStatefulWidget {
   const ExplorePageView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  ConsumerState<ExplorePageView> createState() => _ExplorePageViewState();
+}
 
-    return Scaffold(
-      backgroundColor: AppColors.bg(isDark),
-      body: SafeArea(
-        child: Center(
+class _ExplorePageViewState extends ConsumerState<ExplorePageView> {
+  @override
+  Widget build(BuildContext context) {
+    final scenesAsync = ref.watch(scenesProvider);
+
+    return CupertinoPageScaffold(
+      backgroundColor: CupertinoTheme.of(context).scaffoldBackgroundColor,
+      child: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.only(
+            left: 20.w,
+            right: 20.w,
+            top: 16.h,
+            bottom: 100.h,
+          ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: const Color(0xFF0284C7).withValues(alpha: 0.1),
-                  border: Border.all(
-                    color: const Color(0xFF0284C7).withValues(alpha: 0.25),
-                    width: 1.5,
-                  ),
-                ),
-                child: const Icon(
-                  CupertinoIcons.compass_fill,
-                  size: 56,
-                  color: Color(0xFF0284C7),
-                ),
-              ),
-              const SizedBox(height: 20),
               Text(
-                'Màn hình Khám phá',
+                'Không gian & Môi trường 360°',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary(isDark),
+                  color: CupertinoTheme.of(context).textTheme.textStyle.color,
                   letterSpacing: 0.5,
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                'Khám phá Không gian & Môi trường 360°',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.textSecondary(isDark),
-                ),
+              SizedBox(height: 20.h),
+              scenesAsync.when(
+                data: (scenes) => RecentAdditionsWidget(scenes: scenes),
+                loading: () =>
+                    const Center(child: CupertinoActivityIndicator()),
+                error: (err, stack) => const SizedBox.shrink(),
               ),
             ],
           ),
@@ -57,4 +53,3 @@ class ExplorePageView extends StatelessWidget {
     );
   }
 }
-

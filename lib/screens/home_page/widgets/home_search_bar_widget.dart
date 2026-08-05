@@ -51,7 +51,6 @@ class HomeSearchBarWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 12),
-        // Filter button
         GestureDetector(
           onTap: () {},
           child: Container(

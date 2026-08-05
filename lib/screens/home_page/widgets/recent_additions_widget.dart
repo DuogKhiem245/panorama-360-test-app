@@ -1,6 +1,62 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:panorama_360_test_app/core/constants/app_color.dart';
+import 'package:panorama_360_test_app/models/scene_model.dart';
+import 'package:panorama_360_test_app/screens/panorama_page/panorama_page_view.dart';
+
+class RecentAdditionsWidget extends StatelessWidget {
+  const RecentAdditionsWidget({super.key, required this.scenes});
+
+  final List<SceneModel> scenes;
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+
+    if (scenes.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Mới thêm gần đây',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: AppColors.textPrimary(isDark),
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: scenes.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 16),
+          itemBuilder: (context, index) {
+            final scene = scenes[index];
+
+            return RecentAdditionCard(
+              imageUrl: scene.thumbnailUrl,
+              badgeText: scene.category,
+              title: scene.title,
+              viewsText: '${scene.hotspots.length} điểm tương tác', 
+              locationText: scene.location,
+              onTap: () {
+                Navigator.of(context).push(
+                  CupertinoPageRoute(
+                    builder: (context) => PanoramaPageView(scene: scene),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
 
 class RecentAdditionCard extends StatelessWidget {
   final String imageUrl;
@@ -48,7 +104,6 @@ class RecentAdditionCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Top Image Container with Badge
             SizedBox(
               height: 180,
               width: double.infinity,
@@ -59,37 +114,46 @@ class RecentAdditionCard extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned.fill(
-                      child: Image.network(
-                        imageUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Container(
-                          color: isDark
-                              ? const Color(0xFF334155)
-                              : const Color(0xFFE2E8F0),
-                          child: Center(
-                            child: Icon(
-                              CupertinoIcons.photo,
-                              color: isDark
-                                  ? Colors.white54
-                                  : const Color(0xFF94A3B8),
-                              size: 36,
+                      child: imageUrl.startsWith('http')
+                          ? ExtendedImage.network(
+                              imageUrl,
+                              fit: BoxFit.cover,
+                              cache: true,
+                              loadStateChanged: (state) {
+                                if (state.extendedImageLoadState ==
+                                    LoadState.loading) {
+                                  return Container(
+                                    color: isDark
+                                        ? const Color(0xFF1E293B)
+                                        : const Color(0xFFF1F5F9),
+                                    child: const Center(
+                                      child: CupertinoActivityIndicator(),
+                                    ),
+                                  );
+                                }
+                                return null;
+                              },
+                            )
+                          : Image.asset(
+                              imageUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Container(
+                                color: isDark
+                                    ? const Color(0xFF334155)
+                                    : const Color(0xFFE2E8F0),
+                                child: Center(
+                                  child: Icon(
+                                    CupertinoIcons.photo,
+                                    color: isDark
+                                        ? Colors.white54
+                                        : const Color(0xFF94A3B8),
+                                    size: 36,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Container(
-                            color: isDark
-                                ? const Color(0xFF1E293B)
-                                : const Color(0xFFF1F5F9),
-                            child: const Center(
-                              child: CupertinoActivityIndicator(),
-                            ),
-                          );
-                        },
-                      ),
                     ),
-                    // Badge Overlay
                     Positioned(
                       top: 10,
                       left: 10,
@@ -121,7 +185,6 @@ class RecentAdditionCard extends StatelessWidget {
               ),
             ),
 
-            // Bottom Content Section
             Padding(
               padding: const EdgeInsets.all(14),
               child: Column(
@@ -176,4 +239,3 @@ class RecentAdditionCard extends StatelessWidget {
     );
   }
 }
-

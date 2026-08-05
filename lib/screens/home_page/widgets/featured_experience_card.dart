@@ -21,30 +21,15 @@ class FeaturedExperienceCard extends StatelessWidget {
     if (scene == null) return const SizedBox.shrink();
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Trải nghiệm Nổi bật',
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-                color: CupertinoTheme.of(context).textTheme.textStyle.color,
-              ),
-            ),
-            GestureDetector(
-              onTap: onViewAllTap,
-              child: Text(
-                'Xem tất cả',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: CupertinoTheme.of(context).primaryColor,
-                ),
-              ),
-            ),
-          ],
+        Text(
+          'Trải nghiệm Nổi bật',
+          style: TextStyle(
+            fontSize: 18.sp,
+            fontWeight: FontWeight.bold,
+            color: CupertinoTheme.of(context).textTheme.textStyle.color,
+          ),
         ),
         SizedBox(height: 12.h),
         Container(
@@ -88,15 +73,15 @@ class FeaturedExperienceCard extends StatelessWidget {
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) =>
                               Container(
-                            color: const Color(0xFF334155),
-                            child: const Center(
-                              child: Icon(
-                                CupertinoIcons.photo,
-                                color: Colors.white54,
-                                size: 48,
+                                color: const Color(0xFF334155),
+                                child: const Center(
+                                  child: Icon(
+                                    CupertinoIcons.photo,
+                                    color: Colors.white54,
+                                    size: 48,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
                         ),
                 ),
 
