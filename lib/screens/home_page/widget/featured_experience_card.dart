@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
@@ -17,6 +18,8 @@ class FeaturedExperienceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (scene == null) return const SizedBox.shrink();
+
     return Column(
       children: [
         Row(
@@ -30,7 +33,6 @@ class FeaturedExperienceCard extends StatelessWidget {
                 color: CupertinoTheme.of(context).textTheme.textStyle.color,
               ),
             ),
-
             GestureDetector(
               onTap: onViewAllTap,
               child: Text(
@@ -49,7 +51,7 @@ class FeaturedExperienceCard extends StatelessWidget {
           width: double.infinity,
           height: 320.h,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.08),
@@ -59,34 +61,45 @@ class FeaturedExperienceCard extends StatelessWidget {
             ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop',
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      color: const Color(0xFF334155),
-                      child: const Center(
-                        child: Icon(
-                          CupertinoIcons.photo,
-                          color: Colors.white54,
-                          size: 48,
+                  child: scene!.thumbnailUrl.startsWith('http')
+                      ? ExtendedImage.network(
+                          scene!.thumbnailUrl,
+                          fit: BoxFit.cover,
+                          cache: true,
+                          loadStateChanged: (state) {
+                            if (state.extendedImageLoadState ==
+                                LoadState.loading) {
+                              return Container(
+                                color: const Color(0xFFE2E8F0),
+                                child: const Center(
+                                  child: CupertinoActivityIndicator(),
+                                ),
+                              );
+                            }
+                            return null;
+                          },
+                        )
+                      : Image.asset(
+                          scene!.thumbnailUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                            color: const Color(0xFF334155),
+                            child: const Center(
+                              child: Icon(
+                                CupertinoIcons.photo,
+                                color: Colors.white54,
+                                size: 48,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Container(
-                        color: const Color(0xFFE2E8F0),
-                        child: const Center(
-                          child: CupertinoActivityIndicator(),
-                        ),
-                      );
-                    },
-                  ),
                 ),
+
                 Positioned.fill(
                   child: Container(
                     decoration: BoxDecoration(
@@ -105,28 +118,28 @@ class FeaturedExperienceCard extends StatelessWidget {
                 ),
 
                 Positioned(
-                  top: 14,
-                  left: 14,
+                  top: 14.h,
+                  left: 14.w,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 5,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 5.h,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.9),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        ContainerDot(),
-                        SizedBox(width: 5),
+                      children: [
+                        const ContainerDot(),
+                        SizedBox(width: 5.w),
                         Text(
                           'Trải nghiệm Hot',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF1E293B),
+                            color: const Color(0xFF1E293B),
                           ),
                         ),
                       ],
@@ -135,66 +148,66 @@ class FeaturedExperienceCard extends StatelessWidget {
                 ),
 
                 Positioned(
-                  left: 16,
-                  right: 16,
-                  bottom: 16,
+                  left: 16.w,
+                  right: 16.w,
+                  bottom: 16.h,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        children: const [
+                        children: [
                           Icon(
                             CupertinoIcons.location_solid,
-                            size: 14,
+                            size: 14.sp,
                             color: Colors.white70,
                           ),
-                          SizedBox(width: 4),
+                          SizedBox(width: 4.w),
                           Text(
-                            'Malibu, California',
+                            scene!.location,
                             style: TextStyle(
-                              fontSize: 13,
+                              fontSize: 13.sp,
                               color: Colors.white70,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        'Phòng khách Hiện đại',
+                      SizedBox(height: 4.h),
+                      Text(
+                        scene!.title,
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 22.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           letterSpacing: -0.3,
                         ),
                       ),
-                      const SizedBox(height: 14),
+                      SizedBox(height: 14.h),
                       SizedBox(
                         width: double.infinity,
-                        height: 44,
+                        height: 44.h,
                         child: ElevatedButton(
                           onPressed: onOpen360Tap,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF0088CC),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22),
+                              borderRadius: BorderRadius.circular(22.r),
                             ),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               Icon(
                                 Icons.panorama_photosphere_outlined,
                                 color: Colors.white,
-                                size: 20,
+                                size: 20.sp,
                               ),
-                              SizedBox(width: 8),
+                              SizedBox(width: 8.w),
                               Text(
                                 'Mở 360°',
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
                                 ),
@@ -221,8 +234,8 @@ class ContainerDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 8,
-      height: 8,
+      width: 8.r,
+      height: 8.r,
       decoration: const BoxDecoration(
         color: Color(0xFF38BDF8),
         shape: BoxShape.circle,
