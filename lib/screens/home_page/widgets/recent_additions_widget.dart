@@ -41,7 +41,7 @@ class RecentAdditionsWidget extends StatelessWidget {
               imageUrl: scene.thumbnailUrl,
               badgeText: scene.category,
               title: scene.title,
-              viewsText: '${scene.hotspots.length} điểm tương tác', 
+              viewsText: '${scene.hotspots.length} điểm tương tác',
               locationText: scene.location,
               onTap: () {
                 Navigator.of(context).push(
@@ -139,19 +139,19 @@ class RecentAdditionCard extends StatelessWidget {
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) =>
                                   Container(
-                                color: isDark
-                                    ? const Color(0xFF334155)
-                                    : const Color(0xFFE2E8F0),
-                                child: Center(
-                                  child: Icon(
-                                    CupertinoIcons.photo,
                                     color: isDark
-                                        ? Colors.white54
-                                        : const Color(0xFF94A3B8),
-                                    size: 36,
+                                        ? const Color(0xFF334155)
+                                        : const Color(0xFFE2E8F0),
+                                    child: Center(
+                                      child: Icon(
+                                        CupertinoIcons.photo,
+                                        color: isDark
+                                            ? Colors.white54
+                                            : const Color(0xFF94A3B8),
+                                        size: 36,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
                             ),
                     ),
                     Positioned(
