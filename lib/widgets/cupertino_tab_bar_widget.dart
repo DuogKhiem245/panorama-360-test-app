@@ -1,34 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:panorama_360_test_app/models/tab_items.dart';
 import 'package:panorama_360_test_app/providers/navigation_provider.dart';
 import 'package:panorama_360_test_app/screens/explore_page/explore_page_view.dart';
 import 'package:panorama_360_test_app/screens/favorites_page/favorites_page_view.dart';
 import 'package:panorama_360_test_app/screens/home_page/home_page_view.dart';
 import 'package:panorama_360_test_app/screens/profile_page/profile_page_view.dart';
-import 'package:panorama_360_test_app/screens/search_page/search_page_view.dart';
 
-
-class TabItemData {
-  final String label;
-  final IconData icon;
-  final IconData activeIcon;
-
-  const TabItemData({
-    required this.label,
-    required this.icon,
-    required this.activeIcon,
-  });
-}
-
-/// Màn hình chính quản lý và cấu hình các tab
 class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
 
   static const List<Widget> _pages = [
     HomePageView(),
     ExplorePageView(),
-    SearchPageView(),
     FavoritesPageView(),
     ProfilePageView(),
   ];
@@ -41,16 +27,11 @@ class MainScreen extends ConsumerWidget {
       backgroundColor: const Color(0xFF14171F),
       child: Stack(
         children: [
-          // Content of selected tab page
-          IndexedStack(
-            index: selectedIndex,
-            children: _pages,
-          ),
-          // Floating Cupertino Tab Bar at the bottom
+          IndexedStack(index: selectedIndex, children: _pages),
           const Positioned(
             left: 0,
             right: 0,
-            bottom: 10,
+            bottom: 0,
             child: CustomCupertinoTabBar(),
           ),
         ],
@@ -59,7 +40,6 @@ class MainScreen extends ConsumerWidget {
   }
 }
 
-/// Widget thanh Tab Bar thiết kế theo Cupertino style
 class CustomCupertinoTabBar extends ConsumerWidget {
   const CustomCupertinoTabBar({super.key});
 
@@ -73,11 +53,6 @@ class CustomCupertinoTabBar extends ConsumerWidget {
       label: 'Explore',
       icon: CupertinoIcons.compass,
       activeIcon: CupertinoIcons.compass_fill,
-    ),
-    TabItemData(
-      label: 'Search',
-      icon: CupertinoIcons.search,
-      activeIcon: CupertinoIcons.search,
     ),
     TabItemData(
       label: 'Favorites',
@@ -96,20 +71,20 @@ class CustomCupertinoTabBar extends ConsumerWidget {
     final selectedIndex = ref.watch(navigationNotifierProvider);
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
       decoration: BoxDecoration(
-        color: const Color(0xFF212530),
-        borderRadius: BorderRadius.circular(28),
+        color: Colors.white.withValues(alpha: 0.92),
+        borderRadius: BorderRadius.circular(32.r),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.08),
-          width: 1,
+          color: Colors.black.withValues(alpha: 0.05),
+          width: 1.2,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.35),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+            color: const Color(0xFF0F172A).withValues(alpha: 0.08),
+            blurRadius: 24,
+            spreadRadius: 2,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
@@ -126,55 +101,52 @@ class CustomCupertinoTabBar extends ConsumerWidget {
                 ref.read(navigationNotifierProvider.notifier).setIndex(index);
               },
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                curve: Curves.easeOutCubic,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.fastOutSlowIn,
+                padding: EdgeInsets.symmetric(vertical: 4.h),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Icon Container with Glow Effect for Active state
-                    AnimatedContainer(
+                    // Hiệu ứng co giãn Icon khi active (Bounce effect)
+                    AnimatedScale(
+                      scale: isSelected ? 1.15 : 1.0,
                       duration: const Duration(milliseconds: 250),
-                      curve: Curves.easeOutCubic,
-                      width: 38,
-                      height: 38,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: isSelected
-                            ? const Color(0xFF8AAEFF)
-                            : Colors.transparent,
-                        boxShadow: isSelected
-                            ? [
-                                BoxShadow(
-                                  color: const Color(
-                                    0xFF8AAEFF,
-                                  ).withValues(alpha: 0.55),
-                                  blurRadius: 18,
-                                  spreadRadius: 2,
-                                ),
-                              ]
-                            : [],
-                      ),
-                      child: Icon(
-                        isSelected ? item.activeIcon : item.icon,
-                        size: isSelected ? 20 : 22,
-                        color: isSelected
-                            ? const Color(0xFF161922)
-                            : const Color(0xFFD0D5E0),
+                      curve: Curves.easeOutBack,
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeInOut,
+                        width: 42.r,
+                        height: 32.r,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.r),
+                          color: isSelected
+                              ? const Color(
+                                  0xFFEFF6FF,
+                                ) // Nền Highlight Xanh nhạt
+                              : Colors.transparent,
+                        ),
+                        child: Icon(
+                          isSelected ? item.activeIcon : item.icon,
+                          size: 20.sp,
+                          color: isSelected
+                              ? const Color(0xFF2563EB) // Blue Hoàng Gia
+                              : const Color(0xFF64748B), // Slate Grey
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 6),
-                    // Label Text
+                    SizedBox(height: 3.h),
+                    // Label Text với hiệu ứng chuyển màu
                     AnimatedDefaultTextStyle(
-                      duration: const Duration(milliseconds: 250),
+                      duration: const Duration(milliseconds: 200),
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 11.sp,
                         fontWeight: isSelected
                             ? FontWeight.w700
                             : FontWeight.w500,
                         color: isSelected
-                            ? const Color(0xFFB0CDFF)
-                            : const Color(0xFFD0D5E0),
-                        letterSpacing: 0.2,
+                            ? const Color(0xFF2563EB)
+                            : const Color(0xFF64748B),
+                        letterSpacing: -0.2,
                         fontFamily: '.SF Pro Text',
                       ),
                       child: Text(item.label),
