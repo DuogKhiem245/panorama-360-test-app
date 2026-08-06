@@ -39,7 +39,7 @@ class FeaturedExperienceCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.08),
+                color: CupertinoColors.black.withValues(alpha: 0.08),
                 blurRadius: 15,
                 offset: const Offset(0, 6),
               ),
@@ -77,7 +77,7 @@ class FeaturedExperienceCard extends StatelessWidget {
                                 child: const Center(
                                   child: Icon(
                                     CupertinoIcons.photo,
-                                    color: Colors.white54,
+                                    color: CupertinoColors.white,
                                     size: 48,
                                   ),
                                 ),
@@ -93,9 +93,9 @@ class FeaturedExperienceCard extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         stops: const [0.0, 0.4, 1.0],
                         colors: [
-                          Colors.black.withValues(alpha: 0.2),
-                          Colors.black.withValues(alpha: 0.05),
-                          Colors.black.withValues(alpha: 0.8),
+                          CupertinoColors.black.withValues(alpha: 0.2),
+                          CupertinoColors.black.withValues(alpha: 0.05),
+                          CupertinoColors.black.withValues(alpha: 0.8),
                         ],
                       ),
                     ),
@@ -111,7 +111,7 @@ class FeaturedExperienceCard extends StatelessWidget {
                       vertical: 5.h,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.9),
+                      color: CupertinoColors.white.withValues(alpha: 0.9),
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Row(
@@ -144,14 +144,14 @@ class FeaturedExperienceCard extends StatelessWidget {
                           Icon(
                             CupertinoIcons.location_solid,
                             size: 14.sp,
-                            color: Colors.white70,
+                            color: CupertinoColors.white,
                           ),
                           SizedBox(width: 4.w),
                           Text(
                             scene!.location,
                             style: TextStyle(
                               fontSize: 13.sp,
-                              color: Colors.white70,
+                              color: CupertinoColors.white,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -163,38 +163,33 @@ class FeaturedExperienceCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 22.sp,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: CupertinoColors.white,
                           letterSpacing: -0.3,
                         ),
                       ),
                       SizedBox(height: 14.h),
                       SizedBox(
                         width: double.infinity,
-                        height: 44.h,
-                        child: ElevatedButton(
+                        child: CupertinoButton(
                           onPressed: onOpen360Tap,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF0088CC),
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22.r),
-                            ),
-                          ),
+                          color: const Color(0xFF0088CC),
+                          borderRadius: BorderRadius.circular(22.r),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(
                                 Icons.panorama_photosphere_outlined,
-                                color: Colors.white,
+                                color: CupertinoColors.white,
                                 size: 20.sp,
                               ),
                               SizedBox(width: 8.w),
                               Text(
                                 'Mở 360°',
                                 style: TextStyle(
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                                  color: CupertinoColors.white,
                                 ),
                               ),
                             ],
