@@ -17,7 +17,8 @@ class PanoramaPageView extends ConsumerStatefulWidget {
 }
 
 class _PanoramaPageViewState extends ConsumerState<PanoramaPageView> {
-  double _zoom = 2.0;
+  double _zoom = 1.0;
+  final PanoramaController _controller = PanoramaController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +27,12 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView> {
       child: Stack(
         children: [
           PanoramaViewer(
+            panoramaController: _controller,
             zoom: _zoom,
-            minZoom: 1.0,
+            minZoom: 0.5,
             maxZoom: 5.0,
             animSpeed: 0,
             sensorControl: SensorControl.none,
-            onViewChanged: (longitude, latitude, zoom) {
-              _zoom = zoom;
-            },
             hotspots: widget.scene.hotspots.map((hotspot) {
               return Hotspot(
                 latitude: hotspot.latitude,
@@ -67,25 +66,27 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView> {
                 currentZoom: _zoom,
                 onZoomIn: () {
                   setState(() {
-                    _zoom = (_zoom + 0.5).clamp(1.0, 4.0);
+                    _zoom = (_zoom + 0.5).clamp(1.0, 5.0);
+                    _controller.setZoom(_zoom);
                   });
                 },
                 onZoomOut: () {
                   setState(() {
-                    _zoom = (_zoom - 0.5).clamp(1.0, 4.0);
+                    _zoom = (_zoom - 0.5).clamp(1.0, 5.0);
+                    _controller.setZoom(_zoom);
                   });
                 },
                 onResetView: () {
+                  _controller.setZoom(1.0);
                   setState(() {
-                    _zoom = 2.0;
+                    _zoom = 1.0;
                   });
                 },
                 onToggleGyro: () {
                   // Chức năng Gyroscope chưa được triển khai
                 },
                 currentSceneId: widget.scene.id,
-                availableScenes:
-                    const [], // Hoặc dùng: ref.watch(allScenesProvider)
+                availableScenes: const [],
                 onSelectScene: (nextScene) {
                   // Chuyển sang Scene được chọn
                 },

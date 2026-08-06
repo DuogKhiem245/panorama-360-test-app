@@ -27,6 +27,9 @@ class ControlToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMinZoom = currentZoom <= 1.0;
+    final isMaxZoom = currentZoom >= 5.0;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       decoration: BoxDecoration(
@@ -52,7 +55,7 @@ class ControlToolbar extends StatelessWidget {
               ),
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
               child: Icon(
-                CupertinoIcons.viewfinder,
+                CupertinoIcons.refresh,
                 size: 20.sp,
                 color: CupertinoColors.black,
               ),
@@ -61,7 +64,6 @@ class ControlToolbar extends StatelessWidget {
 
           _buildDivider(),
 
-          // 2. Nút Reset View
           Container(
             decoration: BoxDecoration(
               color: CupertinoColors.white,
@@ -76,11 +78,13 @@ class ControlToolbar extends StatelessWidget {
                     vertical: 10.h,
                   ),
                   minimumSize: Size.zero,
-                  onPressed: onZoomOut,
+                  onPressed: isMinZoom ? null : onZoomOut,
                   child: Icon(
                     CupertinoIcons.minus,
                     size: 20.sp,
-                    color: CupertinoColors.black,
+                    color: isMinZoom
+                        ? CupertinoColors.systemGrey4
+                        : CupertinoColors.black,
                   ),
                 ),
                 Container(
@@ -94,11 +98,13 @@ class ControlToolbar extends StatelessWidget {
                     vertical: 10.h,
                   ),
                   minimumSize: Size.zero,
-                  onPressed: onZoomIn,
+                  onPressed: isMaxZoom ? null : onZoomIn,
                   child: Icon(
                     CupertinoIcons.add,
                     size: 20.sp,
-                    color: CupertinoColors.black,
+                    color: isMaxZoom
+                        ? CupertinoColors.systemGrey4
+                        : CupertinoColors.black,
                   ),
                 ),
               ],
@@ -107,7 +113,6 @@ class ControlToolbar extends StatelessWidget {
 
           _buildDivider(),
 
-          // 3. Nút Scenes
           GestureDetector(
             onTap: () => _showScenesBottomSheet(context),
             child: Container(
