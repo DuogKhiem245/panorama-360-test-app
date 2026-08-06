@@ -23,7 +23,7 @@
 
 - Thư viện core (panorama_viewer): Nhẹ, hỗ trợ render ảnh Equirectangular và gắn các Hotspots theo tọa độ latitude/longitude.
 - Thư viện hiển thị ảnh (extended_image): Tối ưu việc tải, nén và lưu cache hình ảnh Panorama/Thumbnail, giúp tránh tràn bộ nhớ RAM và tăng hiệu năng hiển thị.
-- Kiến trúc UI (Cupertino Style): Thiết kế giao diện kiểu iOS (CupertinoTheme) vì tôi thường hay code theo kiểu đó và chạy trên máy thật
+- Kiến trúc UI (Cupertino Style): Thiết kế giao diện kiểu iOS (CupertinoTheme) vì em thường hay code theo kiểu đó và chạy trên máy thật
 
 4. Các tính năng đã hoàn thành
 
