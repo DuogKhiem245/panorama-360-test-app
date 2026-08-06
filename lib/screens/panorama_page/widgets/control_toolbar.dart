@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:panorama_360_test_app/models/scene_model.dart';
 
@@ -35,7 +34,7 @@ class ControlToolbar extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.15),
+            color: CupertinoColors.black.withValues(alpha: 0.15),
             blurRadius: 15,
             offset: const Offset(0, 5),
           ),
@@ -110,7 +109,6 @@ class ControlToolbar extends StatelessWidget {
           // ),
 
           // _buildDivider(),
-
           GestureDetector(
             onTap: () => _showScenesBottomSheet(context),
             child: Container(
@@ -124,14 +122,14 @@ class ControlToolbar extends StatelessWidget {
                 children: [
                   Icon(
                     CupertinoIcons.photo_fill_on_rectangle_fill,
-                    color: Colors.white,
+                    color: CupertinoColors.white,
                     size: 18.sp,
                   ),
                   SizedBox(width: 8.w),
                   Text(
                     'Các không gian khác (${availableScenes.length})',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: CupertinoColors.white,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -185,7 +183,7 @@ class ControlToolbar extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w700,
-                color: Colors.black87,
+                color: CupertinoColors.black,
               ),
             ),
             SizedBox(height: 16.h),
@@ -197,7 +195,7 @@ class ControlToolbar extends StatelessWidget {
                         'Không có không gian khác',
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: Colors.black45,
+                          color: CupertinoColors.systemGrey,
                         ),
                       ),
                     )
@@ -227,8 +225,10 @@ class ControlToolbar extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(20.r),
                                       border: Border.all(
                                         color: isSelected
-                                            ? const Color(0xFF0052D4)
-                                            : Colors.transparent,
+                                            ? CupertinoTheme.of(
+                                                context,
+                                              ).primaryColor
+                                            : CupertinoColors.transparent,
                                         width: 3,
                                       ),
                                       image: DecorationImage(
@@ -243,13 +243,15 @@ class ControlToolbar extends StatelessWidget {
                                       right: 6.w,
                                       child: Container(
                                         padding: EdgeInsets.all(4.w),
-                                        decoration: const BoxDecoration(
-                                          color: Color(0xFF0052D4),
+                                        decoration: BoxDecoration(
+                                          color: CupertinoTheme.of(
+                                            context,
+                                          ).primaryColor,
                                           shape: BoxShape.circle,
                                         ),
                                         child: Icon(
                                           CupertinoIcons.checkmark_alt,
-                                          color: Colors.white,
+                                          color: CupertinoColors.white,
                                           size: 14.sp,
                                         ),
                                       ),
@@ -268,8 +270,10 @@ class ControlToolbar extends StatelessWidget {
                                         ? FontWeight.w700
                                         : FontWeight.w500,
                                     color: isSelected
-                                        ? const Color(0xFF0052D4)
-                                        : Colors.black87,
+                                        ? CupertinoTheme.of(
+                                            context,
+                                          ).primaryColor
+                                        : CupertinoColors.black,
                                   ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,

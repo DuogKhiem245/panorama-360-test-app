@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:panorama_360_test_app/models/hotspot_model.dart';
 
@@ -64,7 +63,7 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
                 color: isNav
                     ? const Color(0xFF0088CC).withValues(alpha: 0.9)
                     : const Color(0xFF38BDF8).withValues(alpha: 0.85),
-                border: Border.all(color: Colors.white, width: 2),
+                border: Border.all(color: CupertinoColors.white, width: 2),
                 boxShadow: [
                   BoxShadow(
                     color: (isNav ? const Color(0xFF0088CC) : const Color(0xFF38BDF8))
@@ -78,7 +77,7 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
                 isNav
                     ? CupertinoIcons.arrow_right_arrow_left
                     : CupertinoIcons.info_circle_fill,
-                color: Colors.white,
+                color: CupertinoColors.white,
                 size: 22.sp,
               ),
             ),
@@ -95,11 +94,11 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: CupertinoColors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: CupertinoColors.black.withValues(alpha: 0.15),
               blurRadius: 20,
               offset: const Offset(0, -4),
             ),
@@ -116,7 +115,7 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
                   width: 40.w,
                   height: 4.h,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: CupertinoColors.systemGrey,
                     borderRadius: BorderRadius.circular(2.r),
                   ),
                 ),
@@ -187,7 +186,7 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
                         Text(
                           'Đi vào không gian này',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: CupertinoColors.white,
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w600,
                           ),
@@ -195,7 +194,7 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
                         SizedBox(width: 8.w),
                         Icon(
                           CupertinoIcons.arrow_right,
-                          color: Colors.white,
+                          color: CupertinoColors.white,
                           size: 18.sp,
                         ),
                       ],
