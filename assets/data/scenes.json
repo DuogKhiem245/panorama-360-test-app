@@ -7,12 +7,13 @@
     "isFeatured": true,
     "thumbnailUrl": "assets/images/anh_1.png",
     "panoramaImagePath": "assets/images/anh_1.png",
+    "connected_spaces": ["1", "2"],
     "hotspots": [
       {
         "id": "hs_1_rest",
         "type": "INFO",
-        "latitude": 5.0,
-        "longitude": -110.0,
+        "latitude": 10.0,
+        "longitude": -135.0,
         "title": "Nhà hàng & Cà phê Bräustüble",
         "description": "Kiến trúc nhà khung gỗ (Fachwerk) cổ kính đặc trưng của vùng Bavaria, Đức.",
         "imageUrl": null
@@ -20,7 +21,7 @@
       {
         "id": "hs_1_light",
         "type": "INFO",
-        "latitude": 10.0,
+        "latitude": 15.0,
         "longitude": -25.0,
         "title": "Đèn Trang Trí Giáng Sinh",
         "description": "Các ngôi sao Giáng Sinh tỏa ánh sáng ấm áp bên trong các ô cửa sổ gỗ.",
@@ -32,14 +33,14 @@
         "latitude": 15.0,
         "longitude": 110.0,
         "title": "Tòa Nhà Tường Xanh Cổ Kính",
-        "description": "Bức tường vôi màu xanh lá đặc trưng với cửa sổ lá sách màu nâu trầm.",
+        "description": "Bức tường vôi màu xanh lá đặc trưng kết hợp với nhiều cửa sổ tạo nên phong cách độc đáo.",
         "imageUrl": null
       },
       {
         "id": "hs_1_to_2",
         "type": "NAVIGATION",
         "latitude": -5.0,
-        "longitude": 25.0,
+        "longitude": -10.0,
         "title": "Vào Xưởng Dệt Thủ Công",
         "description": "Chuyển sang không gian xưởng làm len dệt vải",
         "targetSceneId": "2"
@@ -54,12 +55,13 @@
     "isFeatured": false,
     "thumbnailUrl": "assets/images/anh_2.png",
     "panoramaImagePath": "assets/images/anh_2.png",
+    "connected_spaces": ["1", "2"],
     "hotspots": [
       {
         "id": "hs_2_wheel",
         "type": "INFO",
-        "latitude": -15.0,
-        "longitude": -65.0,
+        "latitude": -25.0,
+        "longitude": -70.0,
         "title": "Xe Quay Sợi Gỗ Truyền Thống",
         "description": "Dụng cụ quay sợi dệt bằng gỗ cổ điển dùng để sản xuất len thủ công.",
         "imageUrl": null
@@ -67,8 +69,8 @@
       {
         "id": "hs_2_yarn",
         "type": "INFO",
-        "latitude": 10.0,
-        "longitude": -120.0,
+        "latitude": 0.0,
+        "longitude": -75.0,
         "title": "Kệ Len Sợi Tự Nhiên",
         "description": "Hàng trăm cuộn len đa dạng màu sắc được nhuộm từ chất liệu tự nhiên.",
         "imageUrl": null
@@ -77,7 +79,7 @@
         "id": "hs_2_table",
         "type": "INFO",
         "latitude": -25.0,
-        "longitude": 60.0,
+        "longitude": 75.0,
         "title": "Bàn Gỗ & Khăn Dệt Họa Tiết",
         "description": "Bàn làm việc dài bằng gỗ sồi kết hợp khăn dệt trang trí họa tiết hình học.",
         "imageUrl": null
@@ -86,7 +88,7 @@
         "id": "hs_2_to_1",
         "type": "NAVIGATION",
         "latitude": 0.0,
-        "longitude": 25.0,
+        "longitude": 35.0,
         "title": "Quay Lại Phố Cổ",
         "description": "Bước ra ngoài đường phố cổ kính",
         "targetSceneId": "1"
@@ -101,29 +103,30 @@
     "isFeatured": true,
     "thumbnailUrl": "assets/images/anh_3.png",
     "panoramaImagePath": "assets/images/anh_3.png",
+    "connected_spaces": ["3", "4", "5"],
     "hotspots": [
       {
         "id": "hs_3_main_bldg",
         "type": "INFO",
-        "latitude": 10.0,
-        "longitude": -5.0,
-        "title": "Tòa Nhà Trung Tâm Tu Viện",
+        "latitude": 15.0,
+        "longitude": 15.0,
+        "title": "Tòa Nhà Với Kiến Trúc Châu Âu Cổ",
         "description": "Tòa nhà 2 tầng kiến trúc đá vôi vàng với mái ngói đỏ và ban công gỗ.",
         "imageUrl": null
       },
       {
         "id": "hs_3_church",
         "type": "INFO",
-        "latitude": 20.0,
-        "longitude": 110.0,
-        "title": "Thánh Đường Mái Vòm Đen",
-        "description": "Nhà thờ chính tòa với kiến trúc mái vòm kiên cố và các tháp chuông vươn cao.",
+        "latitude": 30.0,
+        "longitude": 105.0,
+        "title": "Thánh Đường Mái Vòm Xanh",
+        "description": "Nhà thờ chính tòa với kiến trúc mái vòm kiên cố đỉnh của chóp.",
         "imageUrl": null
       },
       {
         "id": "hs_3_tower",
         "type": "INFO",
-        "latitude": 20.0,
+        "latitude": 30.0,
         "longitude": -110.0,
         "title": "Tháp Chuông Cổ Kính",
         "description": "Tháp chuông đá trắng cổ kính nằm ở góc phía tây của khuôn viên.",
@@ -137,15 +140,6 @@
         "title": "Đi Đến Sảnh Tầng 1",
         "description": "Tiến vào sảnh đón tiếp bên trong tòa nhà chính",
         "targetSceneId": "4"
-      },
-      {
-        "id": "hs_3_bwd",
-        "type": "NAVIGATION",
-        "latitude": -10.0,
-        "longitude": -160.0,
-        "title": "Đi Lùi: Phòng Ngủ Tầng 2",
-        "description": "Chuyển sang không gian phòng ngủ tầng 2",
-        "targetSceneId": "5"
       }
     ]
   },
@@ -157,12 +151,13 @@
     "isFeatured": false,
     "thumbnailUrl": "assets/images/anh_4.png",
     "panoramaImagePath": "assets/images/anh_4.png",
+    "connected_spaces": ["3", "4", "5"],
     "hotspots": [
       {
         "id": "hs_4_fireplace",
         "type": "INFO",
-        "latitude": 5.0,
-        "longitude": -60.0,
+        "latitude": -5.0,
+        "longitude": -78.0,
         "title": "Lò Sưởi Đá Khổng Lồ",
         "description": "Lò sưởi được xây bằng đá hộc nguyên khối, trung tâm giữ ấm cho sảnh đón tiếp.",
         "imageUrl": null
@@ -170,8 +165,8 @@
       {
         "id": "hs_4_pottery",
         "type": "INFO",
-        "latitude": -10.0,
-        "longitude": 70.0,
+        "latitude": -20.0,
+        "longitude": 80.0,
         "title": "Bộ Cổ Vật Gốm Sứ Đất Nung",
         "description": "Bộ sưu tập bình gốm đất nung cổ truyền được bảo quản trong lồng kính.",
         "imageUrl": null
@@ -179,8 +174,8 @@
       {
         "id": "hs_4_stairs",
         "type": "INFO",
-        "latitude": 15.0,
-        "longitude": 105.0,
+        "latitude": 0.0,
+        "longitude": 90.0,
         "title": "Cầu Thang Gỗ Cổ Điển",
         "description": "Cầu thang gỗ sồi dẫn lên khu vực phòng nghỉ và hành lang tầng 2.",
         "imageUrl": null
@@ -188,8 +183,8 @@
       {
         "id": "hs_4_fwd",
         "type": "NAVIGATION",
-        "latitude": 0.0,
-        "longitude": 100.0,
+        "latitude": 20.0,
+        "longitude": 105.0,
         "title": "Đi Đến Phòng Ngủ Tầng 2",
         "description": "Đi lên cầu thang gỗ sang phòng ngủ tầng trên",
         "targetSceneId": "5"
@@ -198,8 +193,8 @@
         "id": "hs_4_bwd",
         "type": "NAVIGATION",
         "latitude": -5.0,
-        "longitude": -5.0,
-        "title": "Đi Lùi: Ra Sân Ngoại Cảnh",
+        "longitude": 3.0,
+        "title": "Ra Sân Ngoại Cảnh",
         "description": "Mở cửa chính bước ra sân khuôn viên tu viện",
         "targetSceneId": "3"
       }
@@ -213,11 +208,12 @@
     "isFeatured": false,
     "thumbnailUrl": "assets/images/anh_5.png",
     "panoramaImagePath": "assets/images/anh_5.png",
+    "connected_spaces": ["3", "4", "5"],
     "hotspots": [
       {
         "id": "hs_5_bed",
         "type": "INFO",
-        "latitude": -5.0,
+        "latitude": -10.0,
         "longitude": -10.0,
         "title": "Giường Ngủ Khung Gỗ Tự Nhiên",
         "description": "Giường đôi cỡ lớn bằng gỗ chạm khắc tỉ mỉ kết hợp thảm dệt hoa văn Ba Tư.",
@@ -226,8 +222,8 @@
       {
         "id": "hs_5_vanity",
         "type": "INFO",
-        "latitude": 0.0,
-        "longitude": -110.0,
+        "latitude": -12.0,
+        "longitude": -120.0,
         "title": "Tủ Đồ & Bàn Trang Điểm Cổ",
         "description": "Nội thất gỗ đồng bộ gồm gương soi, tủ ngăn kéo và rương chứa đồ antique.",
         "imageUrl": null
@@ -235,27 +231,18 @@
       {
         "id": "hs_5_desk",
         "type": "INFO",
-        "latitude": -10.0,
-        "longitude": 60.0,
+        "latitude": -15.0,
+        "longitude": 70.0,
         "title": "Bàn Làm Việc Hướng Cửa Sổ",
         "description": "Bàn gỗ nhỏ đặt cạnh cửa sổ vòm ngắm nhìn toàn cảnh thành phố cổ.",
         "imageUrl": null
       },
       {
-        "id": "hs_5_fwd",
-        "type": "NAVIGATION",
-        "latitude": 0.0,
-        "longitude": -50.0,
-        "title": "Đi Đến Khuôn Viên Sân Ngoại Cảnh",
-        "description": "Di chuyển ra góc sân ngoại cảnh tu viện",
-        "targetSceneId": "3"
-      },
-      {
         "id": "hs_5_bwd",
         "type": "NAVIGATION",
-        "latitude": 0.0,
-        "longitude": 115.0,
-        "title": "Đi Lùi: Xuống Sảnh Tầng 1",
+        "latitude": -10.0,
+        "longitude": 130.0,
+        "title": "Xuống Sảnh Tầng 1",
         "description": "Đi ra hành lang quay xuống tầng trệt",
         "targetSceneId": "4"
       }

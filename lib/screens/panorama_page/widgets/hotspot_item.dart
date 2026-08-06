@@ -89,30 +89,125 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
   }
 
   void _onHotspotTap(BuildContext context, HotspotModel hotspot) {
-    if (hotspot.type == HotspotType.info) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (context) => CupertinoActionSheet(
-          title: Text(
-            hotspot.title,
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          message: Text(hotspot.description),
-          actions: [
-            CupertinoActionSheetAction(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Đóng'),
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.15),
+              blurRadius: 20,
+              offset: const Offset(0, -4),
             ),
           ],
         ),
-      );
-    } else if (hotspot.type == HotspotType.navigation) {
-      if (hotspot.targetSceneId != null && hotspot.targetSceneId!.isNotEmpty) {
-        widget.onNavigate?.call(hotspot.targetSceneId!);
-      }
-    }
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40.w,
+                  height: 4.h,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(2.r),
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.h),
+              Text(
+                hotspot.title,
+                style: TextStyle(
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w800,
+                  color: const Color(0xFF0F172A),
+                  letterSpacing: -0.5,
+                  height: 1.2,
+                ),
+              ),
+              if (hotspot.description.isNotEmpty) ...[
+                SizedBox(height: 12.h),
+                Text(
+                  hotspot.description,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: const Color(0xFF475569),
+                    height: 1.5,
+                  ),
+                ),
+              ],
+              if (hotspot.imageUrl != null && hotspot.imageUrl!.isNotEmpty) ...[
+                SizedBox(height: 16.h),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.r),
+                  child: Image.asset(
+                    hotspot.imageUrl!,
+                    width: double.infinity,
+                    height: 180.h,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                        const SizedBox.shrink(),
+                  ),
+                ),
+              ],
+              SizedBox(height: 20.h),
+              if (hotspot.type == HotspotType.navigation &&
+                  hotspot.targetSceneId != null &&
+                  hotspot.targetSceneId!.isNotEmpty) ...[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    widget.onNavigate?.call(hotspot.targetSceneId!);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF0052D4),
+                      borderRadius: BorderRadius.circular(14.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF0052D4).withValues(alpha: 0.3),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Đi vào không gian này',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(width: 8.w),
+                        Icon(
+                          CupertinoIcons.arrow_right,
+                          color: Colors.white,
+                          size: 18.sp,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8.h),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:panorama_360_test_app/models/scene_model.dart';
@@ -42,17 +41,11 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView>
     );
 
     _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _transitionController,
-        curve: Curves.easeIn,
-      ),
+      CurvedAnimation(parent: _transitionController, curve: Curves.easeIn),
     );
 
     _scaleAnimation = Tween<double>(begin: 1.0, end: 1.08).animate(
-      CurvedAnimation(
-        parent: _transitionController,
-        curve: Curves.easeOut,
-      ),
+      CurvedAnimation(parent: _transitionController, curve: Curves.easeOut),
     );
   }
 
@@ -80,22 +73,15 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView>
       _targetSceneTitle = nextScene.title;
     });
 
-    // Fade out & scale up không gian cũ
     await _transitionController.forward();
-
-    if (!mounted) return;
 
     setState(() {
       _currentScene = nextScene;
       _zoom = 1.0;
     });
 
-    // Đợi 1 khoảnh khắc ngắn để render ảnh mới
     await Future.delayed(const Duration(milliseconds: 100));
 
-    if (!mounted) return;
-
-    // Fade in không gian mới
     await _transitionController.reverse();
 
     if (mounted) {
@@ -107,16 +93,22 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView>
 
   void _onNavigateToSceneId(String targetSceneId, List<SceneModel> scenes) {
     try {
-      final targetScene = scenes.firstWhere(
-        (s) => s.id == targetSceneId,
-      );
+      final targetScene = scenes.firstWhere((s) => s.id == targetSceneId);
       _switchToScene(targetScene);
     } catch (_) {
       if (!mounted) return;
-      // Trường hợp không tìm thấy scene tương ứng
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+      showCupertinoDialog(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+          title: const Text('Thông báo'),
           content: Text('Không tìm thấy không gian đích (ID: $targetSceneId)'),
+          actions: [
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Đóng'),
+            ),
+          ],
         ),
       );
     }
@@ -125,13 +117,17 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView>
   @override
   Widget build(BuildContext context) {
     final scenesAsync = ref.watch(scenesProvider);
-    final availableScenes = scenesAsync.value ?? [_currentScene];
+    final allScenes = scenesAsync.value ?? [_currentScene];
+    final connectedScenes = _currentScene.connectedSpaces.isEmpty
+        ? allScenes
+        : allScenes
+              .where((s) => _currentScene.connectedSpaces.contains(s.id))
+              .toList();
 
     return CupertinoPageScaffold(
       backgroundColor: CupertinoTheme.of(context).scaffoldBackgroundColor,
       child: Stack(
         children: [
-          // Nội dung Panorama với Animation Fade + Scale Transition
           AnimatedBuilder(
             animation: _transitionController,
             builder: (context, child) {
@@ -159,7 +155,7 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView>
                   widget: HotspotItem(
                     hotspot: hotspot,
                     onNavigate: (targetSceneId) =>
-                        _onNavigateToSceneId(targetSceneId, availableScenes),
+                        _onNavigateToSceneId(targetSceneId, allScenes),
                   ),
                 );
               }).toList(),
@@ -169,7 +165,9 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView>
                   child: Text(
                     'Không thể tải ảnh Panorama',
                     style: TextStyle(
-                      color: CupertinoTheme.of(context).textTheme.textStyle.color,
+                      color: CupertinoTheme.of(
+                        context,
+                      ).textTheme.textStyle.color,
                     ),
                   ),
                 ),
@@ -177,40 +175,35 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView>
             ),
           ),
 
-          // Layer Bar phía trên
           TopBar(scene: _currentScene),
 
-          // Layer Control Toolbar phía dưới
           Positioned(
             bottom: 30.h,
             left: 0,
             right: 0,
             child: Center(
               child: ControlToolbar(
-                currentZoom: _zoom,
-                onZoomIn: () {
-                  setState(() {
-                    _zoom = (_zoom + 0.5).clamp(1.0, 5.0);
-                    _controller.setZoom(_zoom);
-                  });
-                },
-                onZoomOut: () {
-                  setState(() {
-                    _zoom = (_zoom - 0.5).clamp(1.0, 5.0);
-                    _controller.setZoom(_zoom);
-                  });
-                },
+                // currentZoom: _zoom,
+                // onZoomIn: () {
+                //   setState(() {
+                //     _zoom = (_zoom + 0.5).clamp(1.0, 5.0);
+                //     _controller.setZoom(_zoom);
+                //   });
+                // },
+                // onZoomOut: () {
+                //   setState(() {
+                //     _zoom = (_zoom - 0.5).clamp(1.0, 5.0);
+                //     _controller.setZoom(_zoom);
+                //   });
+                // },
                 onResetView: () {
                   _controller.setZoom(1.0);
                   setState(() {
                     _zoom = 1.0;
                   });
                 },
-                onToggleGyro: () {
-                  // Chức năng Gyroscope chưa được triển khai
-                },
                 currentSceneId: _currentScene.id,
-                availableScenes: availableScenes,
+                availableScenes: connectedScenes,
                 onSelectScene: (nextScene) {
                   _switchToScene(nextScene);
                 },
@@ -218,33 +211,35 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView>
             ),
           ),
 
-          // Dynamic Overlay khi đang chuyển cảnh
           if (_isTransitioning)
             IgnorePointer(
               child: Container(
-                color: Colors.black.withValues(alpha: 0.35),
+                color: CupertinoColors.black.withValues(alpha: 0.3),
                 child: Center(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24.w,
+                      vertical: 16.h,
+                    ),
                     decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.75),
+                      color: CupertinoColors.black.withValues(alpha: 0.75),
                       borderRadius: BorderRadius.circular(16.r),
                       border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.2),
+                        color: CupertinoColors.white.withValues(alpha: 0.2),
                       ),
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const CupertinoActivityIndicator(
-                          radius: 14,
-                          color: Colors.white,
+                        CupertinoActivityIndicator(
+                          radius: 14.r,
+                          color: CupertinoColors.white,
                         ),
                         SizedBox(height: 12.h),
                         Text(
                           'Đang di chuyển tới...',
                           style: TextStyle(
-                            color: Colors.white70,
+                            color: CupertinoColors.white,
                             fontSize: 13.sp,
                           ),
                         ),
@@ -252,9 +247,9 @@ class _PanoramaPageViewState extends ConsumerState<PanoramaPageView>
                         Text(
                           _targetSceneTitle,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: CupertinoColors.white,
                             fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],

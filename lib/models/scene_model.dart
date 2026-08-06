@@ -8,6 +8,7 @@ class SceneModel {
   final bool isFeatured;
   final String thumbnailUrl;
   final String panoramaImagePath;
+  final List<String> connectedSpaces;
   final List<HotspotModel> hotspots;
 
   SceneModel({
@@ -18,6 +19,7 @@ class SceneModel {
     this.isFeatured = false,
     required this.thumbnailUrl,
     required this.panoramaImagePath,
+    this.connectedSpaces = const [],
     required this.hotspots,
   });
 
@@ -30,6 +32,10 @@ class SceneModel {
       isFeatured: json['isFeatured'] as bool? ?? false,
       thumbnailUrl: json['thumbnailUrl'] as String,
       panoramaImagePath: json['panoramaImagePath'] as String,
+      connectedSpaces: (json['connected_spaces'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
       hotspots: (json['hotspots'] as List<dynamic>?)
               ?.map((item) => HotspotModel.fromJson(item as Map<String, dynamic>))
               .toList() ??
@@ -46,6 +52,7 @@ class SceneModel {
       'isFeatured': isFeatured,
       'thumbnailUrl': thumbnailUrl,
       'panoramaImagePath': panoramaImagePath,
+      'connected_spaces': connectedSpaces,
       'hotspots': hotspots.map((h) => h.toJson()).toList(),
     };
   }

@@ -4,22 +4,20 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:panorama_360_test_app/models/scene_model.dart';
 
 class ControlToolbar extends StatelessWidget {
-  final double currentZoom;
-  final VoidCallback onZoomIn;
-  final VoidCallback onZoomOut;
+  // final double currentZoom;
+  // final VoidCallback onZoomIn;
+  // final VoidCallback onZoomOut;
   final VoidCallback onResetView;
-  final VoidCallback? onToggleGyro;
   final String currentSceneId;
   final List<SceneModel> availableScenes;
   final Function(SceneModel) onSelectScene;
 
   const ControlToolbar({
     super.key,
-    required this.currentZoom,
-    required this.onZoomIn,
-    required this.onZoomOut,
+    // required this.currentZoom,
+    // required this.onZoomIn,
+    // required this.onZoomOut,
     required this.onResetView,
-    this.onToggleGyro,
     required this.currentSceneId,
     required this.availableScenes,
     required this.onSelectScene,
@@ -27,8 +25,8 @@ class ControlToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMinZoom = currentZoom <= 1.0;
-    final isMaxZoom = currentZoom >= 5.0;
+    // final isMinZoom = currentZoom <= 1.0;
+    // final isMaxZoom = currentZoom >= 5.0;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -64,54 +62,54 @@ class ControlToolbar extends StatelessWidget {
 
           _buildDivider(),
 
-          Container(
-            decoration: BoxDecoration(
-              color: CupertinoColors.white,
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CupertinoButton(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12.w,
-                    vertical: 10.h,
-                  ),
-                  minimumSize: Size.zero,
-                  onPressed: isMinZoom ? null : onZoomOut,
-                  child: Icon(
-                    CupertinoIcons.minus,
-                    size: 20.sp,
-                    color: isMinZoom
-                        ? CupertinoColors.systemGrey4
-                        : CupertinoColors.black,
-                  ),
-                ),
-                Container(
-                  width: 1,
-                  height: 16.h,
-                  color: CupertinoColors.systemGrey4,
-                ),
-                CupertinoButton(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12.w,
-                    vertical: 10.h,
-                  ),
-                  minimumSize: Size.zero,
-                  onPressed: isMaxZoom ? null : onZoomIn,
-                  child: Icon(
-                    CupertinoIcons.add,
-                    size: 20.sp,
-                    color: isMaxZoom
-                        ? CupertinoColors.systemGrey4
-                        : CupertinoColors.black,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   decoration: BoxDecoration(
+          //     color: CupertinoColors.white,
+          //     borderRadius: BorderRadius.circular(12.r),
+          //   ),
+          //   child: Row(
+          //     mainAxisSize: MainAxisSize.min,
+          //     children: [
+          //       CupertinoButton(
+          //         padding: EdgeInsets.symmetric(
+          //           horizontal: 12.w,
+          //           vertical: 10.h,
+          //         ),
+          //         minimumSize: Size.zero,
+          //         onPressed: isMinZoom ? null : onZoomOut,
+          //         child: Icon(
+          //           CupertinoIcons.minus,
+          //           size: 20.sp,
+          //           color: isMinZoom
+          //               ? CupertinoColors.systemGrey4
+          //               : CupertinoColors.black,
+          //         ),
+          //       ),
+          //       Container(
+          //         width: 1,
+          //         height: 16.h,
+          //         color: CupertinoColors.systemGrey4,
+          //       ),
+          //       CupertinoButton(
+          //         padding: EdgeInsets.symmetric(
+          //           horizontal: 12.w,
+          //           vertical: 10.h,
+          //         ),
+          //         minimumSize: Size.zero,
+          //         onPressed: isMaxZoom ? null : onZoomIn,
+          //         child: Icon(
+          //           CupertinoIcons.add,
+          //           size: 20.sp,
+          //           color: isMaxZoom
+          //               ? CupertinoColors.systemGrey4
+          //               : CupertinoColors.black,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
 
-          _buildDivider(),
+          // _buildDivider(),
 
           GestureDetector(
             onTap: () => _showScenesBottomSheet(context),
@@ -131,7 +129,7 @@ class ControlToolbar extends StatelessWidget {
                   ),
                   SizedBox(width: 8.w),
                   Text(
-                    'Các không gian (${availableScenes.length})',
+                    'Các không gian khác (${availableScenes.length})',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14.sp,
@@ -167,50 +165,31 @@ class ControlToolbar extends StatelessWidget {
           borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 1. Drag Indicator
-            Container(
-              width: 36.w,
-              height: 4.h,
-              decoration: BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.circular(2.r),
+            Center(
+              child: Container(
+                width: 36.w,
+                height: 4.h,
+                decoration: BoxDecoration(
+                  color: CupertinoTheme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(2.r),
+                ),
               ),
             ),
             SizedBox(height: 12.h),
 
-            // 2. Header
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Scenes in this Location (${availableScenes.length})',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black87,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    padding: EdgeInsets.all(6.w),
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFE5E7ED),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      CupertinoIcons.xmark,
-                      size: 14.sp,
-                      color: Colors.black54,
-                    ),
-                  ),
-                ),
-              ],
+            Text(
+              'Các cảnh tại địa điểm này (${availableScenes.length})',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.black87,
+              ),
             ),
             SizedBox(height: 16.h),
 
-            // 3. Danh sách Scenes
             Expanded(
               child: availableScenes.isEmpty
                   ? Center(
