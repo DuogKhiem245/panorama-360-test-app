@@ -101,7 +101,7 @@ class RecentAdditionCard extends StatelessWidget {
                                   return Container(
                                     color: CupertinoTheme.of(
                                       context,
-                                    ).barBackgroundColor,
+                                    ).textTheme.textStyle.color,
                                     child: const Center(
                                       child: CupertinoActivityIndicator(),
                                     ),

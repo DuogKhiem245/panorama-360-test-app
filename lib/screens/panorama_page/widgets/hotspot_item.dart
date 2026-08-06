@@ -6,17 +6,14 @@ class HotspotItem extends StatefulWidget {
   final HotspotModel hotspot;
   final void Function(String targetSceneId)? onNavigate;
 
-  const HotspotItem({
-    super.key,
-    required this.hotspot,
-    this.onNavigate,
-  });
+  const HotspotItem({super.key, required this.hotspot, this.onNavigate});
 
   @override
   State<HotspotItem> createState() => _HotspotItemState();
 }
 
-class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStateMixin {
+class _HotspotItemState extends State<HotspotItem>
+    with SingleTickerProviderStateMixin {
   late AnimationController _pulseController;
   late Animation<double> _scaleAnimation;
 
@@ -28,11 +25,8 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
       duration: const Duration(milliseconds: 1200),
     );
 
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.15).animate(
-      CurvedAnimation(
-        parent: _pulseController,
-        curve: Curves.easeInOut,
-      ),
+    _scaleAnimation = Tween<double>(begin: 1, end: 1.2).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
 
     if (widget.hotspot.type == HotspotType.navigation) {
@@ -60,25 +54,15 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isNav
-                    ? const Color(0xFF0088CC).withValues(alpha: 0.9)
-                    : const Color(0xFF38BDF8).withValues(alpha: 0.85),
-                border: Border.all(color: CupertinoColors.white, width: 2),
-                boxShadow: [
-                  BoxShadow(
-                    color: (isNav ? const Color(0xFF0088CC) : const Color(0xFF38BDF8))
-                        .withValues(alpha: isNav ? 0.7 : 0.5),
-                    blurRadius: isNav ? 16 : 12,
-                    spreadRadius: isNav ? 3 : 2,
-                  ),
-                ],
+                color: CupertinoTheme.of(context).primaryColor,
+                border: Border.all(color: CupertinoColors.white, width: 1.w),
               ),
               child: Icon(
                 isNav
                     ? CupertinoIcons.arrow_right_arrow_left
                     : CupertinoIcons.info_circle_fill,
                 color: CupertinoColors.white,
-                size: 22.sp,
+                size: 20.sp,
               ),
             ),
           );
@@ -94,7 +78,7 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
         decoration: BoxDecoration(
-          color: CupertinoColors.white,
+          color: CupertinoTheme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
           boxShadow: [
             BoxShadow(
@@ -115,7 +99,7 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
                   width: 40.w,
                   height: 4.h,
                   decoration: BoxDecoration(
-                    color: CupertinoColors.systemGrey,
+                    color: CupertinoTheme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(2.r),
                   ),
                 ),
@@ -126,9 +110,9 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
                 style: TextStyle(
                   fontSize: 22.sp,
                   fontWeight: FontWeight.w800,
-                  color: const Color(0xFF0F172A),
+                  color: CupertinoTheme.of(context).textTheme.textStyle.color,
                   letterSpacing: -0.5,
-                  height: 1.2,
+                  height: 1.2.h,
                 ),
               ),
               if (hotspot.description.isNotEmpty) ...[
@@ -138,8 +122,10 @@ class _HotspotItemState extends State<HotspotItem> with SingleTickerProviderStat
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
-                    color: const Color(0xFF475569),
-                    height: 1.5,
+                    color: CupertinoTheme.of(
+                      context,
+                    ).textTheme.textStyle.color!.withValues(alpha: 0.7),
+                    height: 1.5.h,
                   ),
                 ),
               ],

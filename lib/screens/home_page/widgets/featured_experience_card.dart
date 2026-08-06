@@ -59,7 +59,9 @@ class FeaturedExperienceCard extends StatelessWidget {
                             if (state.extendedImageLoadState ==
                                 LoadState.loading) {
                               return Container(
-                                color: const Color(0xFFE2E8F0),
+                                color: CupertinoTheme.of(
+                                  context,
+                                ).textTheme.textStyle.color,
                                 child: const Center(
                                   child: CupertinoActivityIndicator(),
                                 ),

@@ -159,7 +159,7 @@ class ControlToolbar extends StatelessWidget {
         height: 250.h,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: const Color(0xFFF4F5F9),
+          color: CupertinoTheme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
         ),
         child: Column(
@@ -183,7 +183,7 @@ class ControlToolbar extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w700,
-                color: CupertinoColors.black,
+                color: CupertinoTheme.of(context).textTheme.textStyle.color,
               ),
             ),
             SizedBox(height: 16.h),
@@ -195,7 +195,9 @@ class ControlToolbar extends StatelessWidget {
                         'Không có không gian khác',
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: CupertinoColors.systemGrey,
+                          color: CupertinoTheme.of(
+                            context,
+                          ).textTheme.textStyle.color!.withValues(alpha: .7),
                         ),
                       ),
                     )
@@ -273,7 +275,11 @@ class ControlToolbar extends StatelessWidget {
                                         ? CupertinoTheme.of(
                                             context,
                                           ).primaryColor
-                                        : CupertinoColors.black,
+                                        : CupertinoTheme.of(context)
+                                              .textTheme
+                                              .textStyle
+                                              .color!
+                                              .withValues(alpha: .7),
                                   ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
